@@ -1,0 +1,391 @@
+﻿<Window x:Class="Simple_Renamer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Simple_Renamer" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="Simple Renamer" Height="580" Width="1020" Icon="{StaticResource SimpleRenamer}">
+
+    <Grid>
+        <Grid.RowDefinitions>            
+            <RowDefinition Height=".59*" />
+            <RowDefinition Height=".41*" MaxHeight="220" />
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <TreeView Grid.Column="0"></TreeView>
+            <DataGrid Grid.Column="1" Margin="8 0"></DataGrid>
+            
+            <!--#region Options Panel -->
+            <StackPanel Grid.Column="2">
+                <Label Content="Options" FontWeight="Bold" Margin="0 5"/>
+                <ComboBox Margin="0 5">
+                    <ComboBoxItem Content="Files" />
+                    <ComboBoxItem Content="Directories" />
+                    <ComboBoxItem Content="Files and directories" Selector.IsSelected="True" />
+                </ComboBox>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Selection pattern" />
+                    <TextBox Grid.Column="1" Height="20">
+                        <TextBox.ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" Margin="0,0,0,5">Selection pattern examples</TextBlock>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="10" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label FontStyle="Italic" Grid.Column="0" Grid.Row="0" Content=""/>
+                                    <Label FontStyle="Italic" Grid.Column="0" Grid.Row="1" Content="*.jpg"/>
+                                    <Label FontStyle="Italic" Grid.Column="0" Grid.Row="2" Content="*"/>
+                                    <Label FontStyle="Italic" Grid.Column="0" Grid.Row="3" Content="a*"/>
+
+                                    <Label Grid.Column="2" Grid.Row="0" Content="Select every visible file"/>
+                                    <Label Grid.Column="2" Grid.Row="1" Content="Select just files that end with the 'jpg' extension"/>
+                                    <Label Grid.Column="2" Grid.Row="2" Content="Select every file (including hidden ones)"/>
+                                    <Label Grid.Column="2" Grid.Row="3" Content="Select files starting with 'a'"/>
+                                </Grid>
+                            </StackPanel>
+                        </TextBox.ToolTip>
+                    </TextBox>
+                </Grid>
+                <CheckBox Content="Add files recursively" Margin="0 5"/>
+                <CheckBox Content="Keep extensions" Margin="0 5"/>
+                <CheckBox Content="Preview automatically" Margin="0 5"/>
+            </StackPanel>
+            <!--#endregion-->
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="120"/>
+            </Grid.ColumnDefinitions>
+
+            <TabControl>
+                <TabItem Header="Patterns">
+                    <GroupBox Margin="8" BorderThickness="0">
+                        <GroupBox.Header>
+                            <Label FontWeight="Bold">Rename files using patterns</Label>
+                        </GroupBox.Header>
+                        <StackPanel>
+                            <Grid Margin="20 0 0 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="35"/>
+                                    <ColumnDefinition Width="35"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <!-- Etiquetas -->
+                                <Label Grid.Column="0" Grid.Row="0" Content="Original file name pattern" Height="25" Margin="0 5" />
+                                <Label Grid.Column="0" Grid.Row="1" Content="Renamed file name pattern" Height="25" Margin="0 5" />
+                                <!-- Combobox -->
+                                <ComboBox Grid.Column="1" Grid.Row="0" IsEditable="True" Height="25" Margin="0 5">
+                                    <ComboBox.ToolTip>
+                                        <StackPanel>
+                                            <TextBlock FontWeight="Bold" Margin="0,0,0,5">Patterns</TextBlock>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="10" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+
+                                                <Label Grid.Column="0" Grid.Row="0" Content=" {&#x23;}"/>
+                                                <Label Grid.Column="0" Grid.Row="1" Content=" {L}"/>
+                                                <Label Grid.Column="0" Grid.Row="2" Content=" {C}"/>
+                                                <Label Grid.Column="0" Grid.Row="3" Content=" {X}"/>
+                                                <Label Grid.Column="0" Grid.Row="4" Content=" {&#x40;}"/>
+
+                                                <Label Grid.Column="2" Grid.Row="0" Content="Numbers"/>
+                                                <Label Grid.Column="2" Grid.Row="1" Content="Letters"/>
+                                                <Label Grid.Column="2" Grid.Row="2" Content="Characters (numbers and letters, no spaces)"/>
+                                                <Label Grid.Column="2" Grid.Row="3" Content="Numbers, letters, and spaces"/>
+                                                <Label Grid.Column="2" Grid.Row="4" Content="Trash"/>
+                                            </Grid>
+                                        </StackPanel>
+                                    </ComboBox.ToolTip>
+                                </ComboBox>
+                                <ComboBox Grid.Column="1" Grid.Row="1" IsEditable="True" Height="25" Margin="0 5">
+                                        <ComboBox.ToolTip>
+                                            <StackPanel>
+                                                <TextBlock FontWeight="Bold" Margin="0,0,0,5">Patterns</TextBlock>
+                                                <TextBlock>
+                                                    Use {1} for first catched item. {2} for second, etc... <LineBreak/>
+                                                    Use {num} for adding 1, 2, 3... to file names <LineBreak/>
+                                                    Use {num2} for 01, 02, 03.....<LineBreak/>
+                                                    Use {num3} for 001, 002, 003...<LineBreak/>
+                                                    Use {num+10} for 10, 11, 12...<LineBreak/>
+                                                    Use {num2+10} for 010, 011, 012...<LineBreak/>
+                                                    Use {dir} for getting current dir<LineBreak/>
+<LineBreak/>
+                                                    Some today date replacements:<LineBreak/>
+                                                    {date}			19800222<LineBreak/>
+                                                    {datedelim}		1980-02-22<LineBreak/>
+                                                    {year}			1980<LineBreak/>
+                                                    {month}		02<LineBreak/>
+                                                    {monthname}	february<LineBreak/>
+                                                    {monthsimp}	feb<LineBreak/>
+                                                    {day}			22<LineBreak/>
+                                                    {dayname}		friday<LineBreak/>
+                                                    {daysimp}		fri<LineBreak/>
+<LineBreak/>
+                                                    Random number replacements:<LineBreak/>
+                                                    {rand} is random number between 0 and 100.<LineBreak/>
+                                                    {rand,3} is random number between 0 and 100 of 3 digits (012)<LineBreak/>
+                                                    {rand500} is random number between 0 and 500<LineBreak/>
+                                                    {rand10-20} is random number between 10 and 20<LineBreak/>
+                                                    {rand20,5} is random number between 0 and 20 of 5 digits (00012)<LineBreak/>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </ComboBox.ToolTip>
+                                    </ComboBox>
+                                <!-- Buttons -->
+                                <Button Grid.Column="2" Grid.Row="0" Width="25" Height="25" Margin="0 5" ToolTip="Save the current pattern">
+                                    <Image Source="{StaticResource SaveIcon}" Width="18" Height="18" Stretch="Uniform" />
+                                </Button>
+                                <Button Grid.Column="3" Grid.Row="0" Width="25" Height="25" Margin="0 5" ToolTip="Edit saved patterns">
+                                    <Image Source="{StaticResource EditIcon}" Width="18" Height="18" Stretch="Uniform" />
+                                </Button>
+                                <Button Grid.Column="2" Grid.Row="1" Width="25" Height="25" Margin="0 5" ToolTip="Save the current pattern">
+                                    <Image Source="{StaticResource SaveIcon}" Width="18" Height="18" Stretch="Uniform" />
+                                </Button>
+                                <Button Grid.Column="3" Grid.Row="1" Width="25" Height="25" Margin="0 5" ToolTip="Edit saved patterns">
+                                    <Image Source="{StaticResource EditIcon}" Width="18" Height="18" Stretch="Uniform" />
+                                </Button>
+                            </Grid>
+
+                            <Label Content="Put the mouse over the text fields to get help on which patterns you can use" FontStyle="Italic"
+                                   Margin="20 0 0 0"/>
+                        </StackPanel>
+                    </GroupBox>
+                </TabItem>
+                <TabItem Header="Substitutions">
+                    <GroupBox Margin="8" BorderThickness="0">
+                        <GroupBox.Header>
+                            <Label FontWeight="Bold">Common substitutions</Label>
+                        </GroupBox.Header>
+                        <StackPanel>
+                            <Grid Margin="20 0 0 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.2*" MaxWidth="200"/>
+                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition Width="0.5*"/>                                    
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <!-- Etiquetas -->
+                                <CheckBox Grid.Column="0" Grid.Row="0" Content="Spaces" Height="20" Margin="0 2" VerticalContentAlignment="Center" />
+                                <CheckBox Grid.Column="0" Grid.Row="1" Content="Replace" Height="20" Margin="0 2" VerticalContentAlignment="Center" />
+                                <CheckBox Grid.Column="0" Grid.Row="2" Content="Capitalization" Height="20" Margin="0 2" VerticalContentAlignment="Center" />
+                                <CheckBox Grid.Column="0" Grid.Row="3" Content="Remove accents" Height="20" Margin="0 2" VerticalContentAlignment="Center" />
+                                <!-- Combobox -->
+                                <ComboBox IsEnabled="False"  Grid.Column="1" Grid.Row="0" IsEditable="True" Height="24" Margin="0 2">
+                                    <ComboBoxItem Content="Spaces to Underscores" Selector.IsSelected="True" />
+                                    <ComboBoxItem Content="Undescores to Spaces" />
+                                    <ComboBoxItem Content="Spaces to Dots" />
+                                    <ComboBoxItem Content="Dots to Spaces" />
+                                    <ComboBoxItem Content="Spaces to Dashes" />
+                                    <ComboBoxItem Content="Dashes to Spaces" />
+                                </ComboBox>
+                                <Grid Grid.Column="1" Grid.Row="1" Margin="0 2" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.4*"/>
+                                        <ColumnDefinition Width="0.2*"/>
+                                        <ColumnDefinition Width="0.4*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Grid.Column="0"/>
+                                    <TextBox Grid.Column="2"/>
+                                    <Label Content="with" Grid.Column="1" HorizontalContentAlignment="Center"/>
+                                </Grid>
+                                <ComboBox IsEnabled="False" Grid.Column="1" Grid.Row="2" IsEditable="True" Height="24" Margin="0 2">
+                                    <ComboBoxItem Content="All uppercase" Selector.IsSelected="True" />
+                                    <ComboBoxItem Content="All downcase" />
+                                    <ComboBoxItem Content="First letter uppercase" />
+                                    <ComboBoxItem Content="First letter uppercase of each word" />
+                                </ComboBox>
+                                <CheckBox Grid.Column="1" Grid.Row="3" Content="Fix duplicated symbols" Height="20" Margin="0 2" VerticalContentAlignment="Center">
+                                    <CheckBox.ToolTip>
+                                        <StackPanel>
+                                            <TextBlock FontWeight="Bold" Margin="0,0,0,5">Fix duplicated symbols</TextBlock>
+                                            <TextBlock xml:space="preserve">Changes:</TextBlock>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="30"/>
+                                                    <ColumnDefinition Width="30"/>
+                                                    <ColumnDefinition Width="30"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+
+                                                <Label Grid.Column="0" Grid.Row="0" Content="....." />
+                                                <Label Grid.Column="1" Grid.Row="0" Content="to" />
+                                                <Label Grid.Column="2" Grid.Row="0" Content="." />
+
+                                                <Label Grid.Column="0" Grid.Row="1" Content="-----" />
+                                                <Label Grid.Column="1" Grid.Row="1" Content="to" />
+                                                <Label Grid.Column="2" Grid.Row="1" Content="-" />
+
+                                                <Label Grid.Column="0" Grid.Row="2" Content="_____" />
+                                                <Label Grid.Column="1" Grid.Row="2" Content="to" />
+                                                <Label Grid.Column="2" Grid.Row="2" Content="_" />
+
+                                                <Label Grid.Column="0" Grid.Row="3" Content="'    '" />
+                                                <Label Grid.Column="1" Grid.Row="3" Content="to" />
+                                                <Label Grid.Column="2" Grid.Row="3" Content="' '" />
+                                            </Grid>
+                                        </StackPanel>
+                                    </CheckBox.ToolTip>
+                                </CheckBox>
+                            </Grid>
+                        </StackPanel>
+                    </GroupBox>
+                </TabItem>
+                <TabItem Header="Insert / Delete">
+                    <GroupBox Margin="8" BorderThickness="0">
+                        <GroupBox.Header>
+                            <Label FontWeight="Bold">Insert or delete charectes from filenames</Label>
+                        </GroupBox.Header>
+                        <StackPanel>
+                            <Grid Margin="20 0 0 0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*" MaxWidth="100" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="0.3*" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="0.2*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <CheckBox Content="Insert" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center"/>
+                                <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Height="20" />
+                                <Label Content="at" HorizontalContentAlignment="Center" Grid.Column="4" Grid.Row="0" />
+                                <xctk:IntegerUpDown Value="1" Minimum="1" Increment="1" Grid.Column="5" Grid.Row="0"  Height="20" />
+                                <CheckBox Content="or at the end" Grid.Column="6" Grid.Row="0" VerticalContentAlignment="Center" />
+                                
+                                
+                                <CheckBox Content="Delete from" Grid.Column="0" Grid.Row="1" Margin="0 5" VerticalContentAlignment="Center" />
+                                <xctk:IntegerUpDown Value="1" Minimum="1" Increment="1"   Grid.Column="1" Grid.Row="1" Margin="0 5" Height="20" />
+                                <Label Content="to" HorizontalContentAlignment="Center" Grid.Column="2" Grid.Row="1" Margin="0 5" />
+                                <xctk:IntegerUpDown Value="1" Minimum="1" Increment="1"   Grid.Column="3" Grid.Row="1" Margin="0 5" Height="20" />
+                                
+                            </Grid>
+                        </StackPanel>
+                    </GroupBox>
+                </TabItem>
+                <TabItem Header="Manual rename">
+                    <GroupBox Margin="8" BorderThickness="0">
+                        <GroupBox.Header>
+                            <Label FontWeight="Bold">Insert or delete charectes from filenames</Label>
+                        </GroupBox.Header>
+                        <StackPanel>
+                            <Grid Margin="20 0 0 0">
+                                
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.15*" MaxWidth="100" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Content="New file name" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center"/>
+                                <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Height="20" />
+                            </Grid>
+                            <Label Content="Select the file to rename, change its name and click Preview" FontStyle="Italic"
+                                   Margin="20 5 0 0"/>
+                        </StackPanel>
+                    </GroupBox>
+                </TabItem>                
+            </TabControl>
+
+            <StackPanel Grid.Column="1" Margin="0 17 0 0">
+                <Button Margin="5">
+                    <Grid Width="80">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Image HorizontalAlignment="Left" Grid.Column="0" Source="{StaticResource PreviewIcon}" Width="18" Height="18" Stretch="Uniform" />
+                        <Label Grid.Column="1" Content="Preview"/>
+                    </Grid>
+                </Button>
+                <Button Margin="5">
+                    <Grid Width="80">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Image HorizontalAlignment="Left" Grid.Column="0" Source="{StaticResource CleanIcon}" Width="18" Height="18" Stretch="Uniform" />
+                        <Label Grid.Column="1" Content="Clear"/>
+                    </Grid>
+                </Button>
+                <Button Margin="5">
+                    <Grid Width="80">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Image HorizontalAlignment="Left" Grid.Column="0" Source="{StaticResource RenameIcon}" Width="18" Height="18" Stretch="Uniform" />
+                        <Label Grid.Column="1" Content="Rename"/>
+                    </Grid>
+                </Button>
+                <Button Margin="5">
+                    <Grid Width="80">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Image HorizontalAlignment="Left" Grid.Column="0" Source="{StaticResource QuitIcon}" Width="18" Height="18" Stretch="Uniform" />
+                        <Label Grid.Column="1" Content="Quit"/>
+                    </Grid>
+                </Button>
+            </StackPanel>
+            
+        </Grid>
+
+    </Grid>    
+</Window>
