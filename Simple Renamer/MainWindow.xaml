@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Simple_Renamer" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:Simple_Renamer" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:explorer="clr-namespace:Simple_Renamer.Explorer"
         mc:Ignorable="d"
         Title="Simple Renamer" Height="580" Width="1020" Icon="{StaticResource SimpleRenamer}">
 
@@ -20,8 +20,10 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
-            <TreeView Grid.Column="0"></TreeView>
-            <DataGrid Grid.Column="1" Margin="8 0"></DataGrid>
+            <Border BorderBrush="SlateGray" BorderThickness="1">
+                <explorer:FolderTree x:Name="FolderTree" Grid.Column="0" SelectedItemChanged="FolderTree_SelectedItemChanged"></explorer:FolderTree>
+            </Border>
+            <DataGrid Grid.Column="1" Margin="8 0" BorderBrush="SlateGray"></DataGrid>
             
             <!--#region Options Panel -->
             <StackPanel Grid.Column="2">
