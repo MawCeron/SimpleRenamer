@@ -19,7 +19,8 @@ namespace Simple_Renamer
         private void FolderTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             try
-            {   
+            {
+                DirectoryText.Text = FolderTree.CurrentFolder;
                 PopulateFilesGrid(folderPath: FolderTree.CurrentFolder);
             }
             catch (Exception)
@@ -32,7 +33,7 @@ namespace Simple_Renamer
 
         private void PopulateFilesGrid(string folderPath)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

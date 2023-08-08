@@ -11,7 +11,7 @@
         <Grid.RowDefinitions>            
             <RowDefinition Height=".59*" />
             <RowDefinition Height=".41*" MaxHeight="220" />
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Margin="10">
@@ -386,7 +386,23 @@
                     </Grid>
                 </Button>
             </StackPanel>
-            
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width=".5*" />
+                <ColumnDefinition Width="30" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Margin="10 0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <TextBlock Text="Directory:" FontWeight="Bold" Height="20"  />
+                <TextBlock x:Name="DirectoryText" Margin="5" Height="20" TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+            <ProgressBar Grid.Column="1" Height="20" Margin="5 3"/>
+            <Button Grid.Column="2" Width="25" Height="25" ToolTip="Edit saved patterns">
+                <Image Source="{StaticResource EditIcon}" Width="18" Height="18" Stretch="Uniform" />
+            </Button>
         </Grid>
 
     </Grid>    
