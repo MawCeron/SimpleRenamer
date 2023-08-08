@@ -12,8 +12,10 @@ namespace Simple_Renamer
     public partial class MainWindow : Window
     {
         public MainWindow()
-        {
+        {   
             InitializeComponent();
+            FolderTree.CurrentFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            PopulateFilesGrid(FolderTree.CurrentFolder);
         }
 
         private void FolderTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -33,7 +35,7 @@ namespace Simple_Renamer
 
         private void PopulateFilesGrid(string folderPath)
         {
-            
+            var files = Directory.GetDirectories(folderPath);
         }
     }
 }

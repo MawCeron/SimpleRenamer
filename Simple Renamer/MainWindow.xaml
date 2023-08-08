@@ -23,7 +23,13 @@
             <Border BorderBrush="SlateGray" BorderThickness="1">
                 <explorer:FolderTree x:Name="FolderTree" Grid.Column="0" SelectedItemChanged="FolderTree_SelectedItemChanged"></explorer:FolderTree>
             </Border>
-            <DataGrid Grid.Column="1" Margin="8 0" BorderBrush="SlateGray"></DataGrid>
+            <DataGrid Grid.Column="1" Margin="8 0" BorderBrush="SlateGray">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="30" MaxWidth="30"/>
+                    <DataGridTextColumn Header="Original file name" Width="*"/>
+                    <DataGridTextColumn Header="Renamed file name" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
             
             <!--#region Options Panel -->
             <StackPanel Grid.Column="2">
@@ -400,7 +406,7 @@
                 <TextBlock x:Name="DirectoryText" Margin="5" Height="20" TextTrimming="CharacterEllipsis" />
             </StackPanel>
             <ProgressBar Grid.Column="1" Height="20" Margin="5 3"/>
-            <Button Grid.Column="2" Width="25" Height="25" ToolTip="Edit saved patterns">
+            <Button Grid.Column="2" Width="25" Height="25" ToolTip="Edit saved patterns" Background="Transparent" BorderThickness="0">
                 <Image Source="{StaticResource EditIcon}" Width="18" Height="18" Stretch="Uniform" />
             </Button>
         </Grid>
