@@ -36,12 +36,10 @@ namespace Simple_Renamer
 
         private void PopulateFilesGrid(string folderPath)
         {
-            var option = (ComboBoxItem)optionsCombo.SelectedItem;
-            List<RenamableItem> items = new List<RenamableItem>();
-            items.Add(new RenamableItem(RenamableItem.FileType.File, "Archivo.txt", ""));
-            items.Add(new RenamableItem(RenamableItem.FileType.File, "Archivo 1.txt", ""));
-            items.Add(new RenamableItem(RenamableItem.FileType.File, "Archivo 2.txt", ""));
-            items.Add(new RenamableItem(RenamableItem.FileType.Folder, "Mas Archivos", ""));
+            var selectedItem = (ComboBoxItem)optionsCombo.SelectedItem;
+            int option = Int32.Parse((string)selectedItem.Tag);
+
+            List<RenamableItem> items = FileTools.GenerateRenamableItemsList(folderPath,option);            
             FilesDataGrid.ItemsSource = items;
         }
     }
