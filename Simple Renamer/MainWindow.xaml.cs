@@ -1,5 +1,6 @@
 ﻿using Simple_Renamer.Explorer;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,7 +36,13 @@ namespace Simple_Renamer
 
         private void PopulateFilesGrid(string folderPath)
         {
-            var files = Directory.GetDirectories(folderPath);
+            var option = (ComboBoxItem)optionsCombo.SelectedItem;
+            List<RenamableItem> items = new List<RenamableItem>();
+            items.Add(new RenamableItem(RenamableItem.FileType.File, "Archivo.txt", ""));
+            items.Add(new RenamableItem(RenamableItem.FileType.File, "Archivo 1.txt", ""));
+            items.Add(new RenamableItem(RenamableItem.FileType.File, "Archivo 2.txt", ""));
+            items.Add(new RenamableItem(RenamableItem.FileType.Folder, "Mas Archivos", ""));
+            FilesDataGrid.ItemsSource = items;
         }
     }
 }

@@ -23,21 +23,105 @@
             <Border BorderBrush="SlateGray" BorderThickness="1">
                 <explorer:FolderTree x:Name="FolderTree" Grid.Column="0" SelectedItemChanged="FolderTree_SelectedItemChanged"></explorer:FolderTree>
             </Border>
-            <DataGrid Grid.Column="1" Margin="8 0" BorderBrush="SlateGray">
+            <DataGrid x:Name="FilesDataGrid" Grid.Column="1" Margin="8 0" AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="None">
+                <DataGrid.Style>
+                    <Style TargetType="DataGrid">
+                        <!-- Make the border and grid lines a little less imposing -->
+                        <Setter Property="BorderBrush" Value="#DDDDDD" />
+                        <Setter Property="HorizontalGridLinesBrush" Value="#DDDDDD" />
+                        <Setter Property="VerticalGridLinesBrush" Value="#DDDDDD" />
+
+                        <Setter Property="RowStyle">
+                            <Setter.Value>
+                                <Style TargetType="DataGridRow">
+                                    <Style.Triggers>
+                                        <!-- Highlight a grid row as the mouse passes over -->
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#CECECE" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="CellStyle">
+                            <Setter.Value>
+                                <Style TargetType="DataGridCell">
+                                    <Style.Triggers>
+                                        <!-- Highlight selected rows -->
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="#ECECEC" />
+                                            <Setter Property="BorderBrush" Value="Transparent" />
+                                            <Setter Property="Foreground" Value="Black" />
+                                        </Trigger>
+                                        <Trigger Property="IsFocused" Value="True">
+                                            <Setter Property="Background" Value="#ECECEC" />
+                                            <Setter Property="BorderBrush" Value="#CCC" />
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="Foreground" Value="Black" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                    <!-- Add some padding around the contents of a cell -->
+                                    <Setter Property="Padding" Value="4,3,4,3" />
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="DataGridCell">
+                                                <Border Padding="{TemplateBinding Padding}" 
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            Background="{TemplateBinding Background}">
+                                                    <ContentPresenter />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="FocusVisualStyle">
+                                        <Setter.Value>
+                                            <Style TargetType="Control">
+                                                <Setter Property="BorderBrush" Value="Transparent" />
+                                            </Style>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.Style>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="30" MaxWidth="30"/>
-                    <DataGridTextColumn Header="Original file name" Width="*"/>
-                    <DataGridTextColumn Header="Renamed file name" Width="*"/>
+                    <DataGridTemplateColumn Width="30" MaxWidth="30">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Width="16" Height="16">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Source" Value="{StaticResource FolderDataGrid}"/>
+                                            <!-- Default image -->
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ItemType}" Value="File">
+                                                    <Setter Property="Source" Value="{StaticResource FileDataGrid}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Original file name" Width="*"
+                            Binding="{Binding OriginalName}"/>
+                    <DataGridTextColumn Header="Renamed file name" Width="*"
+                            Binding="{Binding NewName}"/>
                 </DataGrid.Columns>
             </DataGrid>
             
             <!--#region Options Panel -->
             <StackPanel Grid.Column="2">
                 <Label Content="Options" FontWeight="Bold" Margin="0 5"/>
-                <ComboBox Margin="0 5">
-                    <ComboBoxItem Content="Files" />
-                    <ComboBoxItem Content="Directories" />
-                    <ComboBoxItem Content="Files and directories" Selector.IsSelected="True" />
+                <ComboBox x:Name="optionsCombo"  Margin="0 5">
+                    <ComboBoxItem Content="Files" Tag="0" Selector.IsSelected="True" />
+                    <ComboBoxItem Content="Directories" Tag="1" />
+                    <ComboBoxItem Content="Files and directories" Tag="2" />
                 </ComboBox>
                 <Grid Margin="0 5">
                     <Grid.ColumnDefinitions>
