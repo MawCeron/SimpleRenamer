@@ -2,7 +2,7 @@
 
 Simple Renamer is an open-source file renaming utility developed using the .NET framework, specifically utilizing WPF (Windows Presentation Foundation). Inspired by the functionality of pyRenamer, this application provides users with an intuitive interface to easily rename multiple files and folders in batch mode.
 
-![Simple Renamer Screenshot](screenshot.png)
+![Simple Renamer Screenshot](SimpleRenamer.png)
 
 ## Features
 
