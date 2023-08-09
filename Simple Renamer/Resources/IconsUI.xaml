@@ -153,5 +153,33 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+    
+    <!-- File Icon for DataGrid -->
+    <DrawingImage x:Key="FileDataGrid">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H384 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M384,512z M0,0z M224,0L384,160 256,160C238.3,160,224,145.7,224,128L224,0z" />
+                <GeometryDrawing Geometry="F1 M384,512z M0,0z M64,0C28.7,0,0,28.7,0,64L0,448C0,483.3,28.7,512,64,512L320,512C355.3,512,384,483.3,384,448L384,160 256,160C238.3,160,224,145.7,224,128L224,0 64,0z">
+                    <GeometryDrawing.Brush>
+                        <SolidColorBrush Color="#FF000000" Opacity="0.4" />
+                    </GeometryDrawing.Brush>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <!-- File Icon for DataGrid -->
+    <DrawingImage x:Key="FolderDataGrid">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H576 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M576,512z M0,0z M144,224C132.6,224,122.1,230,116.4,239.9L4.40000000000001,431.9C-1.39999999999999,441.8 -1.39999999999999,454 4.30000000000001,464 10,474 20.5,480 32,480L432,480C443.4,480,453.9,474,459.6,464.1L571.6,272.1C577.4,262.2 577.4,250 571.7,240 566,230 555.5,224 544,224L144,224z" />
+                <GeometryDrawing Geometry="F1 M576,512z M0,0z M461.4,461.1L477.6,433.2C474.6,443.9,468.9,453.4,461.4,461.1z M480,224L144,224C132.6,224,122.1,230,116.4,239.9L4.40000000000001,431.9C-1.39999999999999,441.8 -1.39999999999999,454 4.30000000000001,464 5.30000000000001,465.7 6.30000000000001,467.2 7.50000000000001,468.6 2.8,463 0,455.8 0,448L0,96C0,60.7,28.7,32,64,32L181.5,32C198.5,32,214.8,38.7,226.8,50.7L253.3,77.2C265.3,89.2,281.6,95.9,298.6,95.9L416,95.9C451.3,95.9,480,124.6,480,159.9L480,223.9z M11.1,472.2C16.8,477.1 24.2,480 32,480 24,480 16.7,477.1 11.1,472.2z">
+                    <GeometryDrawing.Brush>
+                        <SolidColorBrush Color="#FF000000" Opacity="0.4" />
+                    </GeometryDrawing.Brush>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
 
 </ResourceDictionary>
