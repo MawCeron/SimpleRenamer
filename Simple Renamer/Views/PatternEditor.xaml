@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Simple_Renamer"
         mc:Ignorable="d"
-        Title="Pattern Editor" Height="350" Width="400" Icon="{StaticResource SimpleRenamer}">
+        Title="Pattern Editor" Height="350" Width="400" Icon="{StaticResource SimpleRenamer}" WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width=".4*"/>
         </Grid.ColumnDefinitions>
 
-        <ListView Grid.Column="0" Margin="10 10 5 10"/>
+        <ListView Grid.Column="0" Margin="10 10 5 10" x:Name="patternsList"/>
         <Grid Grid.Column="1" Margin="0 5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Simple_Renamer.Tools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,11 @@ namespace Simple_Renamer
     /// </summary>
     public partial class PatternEditor : Window
     {
-        public PatternEditor()
+        public PatternEditor(string? patternType)
         {
             InitializeComponent();
+            List<string> patterns = UITools.LoadPatterns(patternType);
+            patternsList.ItemsSource = patterns;
         }
     }
 }

@@ -52,5 +52,18 @@ namespace Simple_Renamer
 
             PopulateFilesGrid(folderPath: currentFolder);
         }
+
+        private void btnQuit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void btnEditPattern_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            PatternEditor editor = new PatternEditor(patternType: button.Tag.ToString());
+            editor.Owner = this;
+            editor.Show();
+        }
     }
 }
