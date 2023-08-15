@@ -1,7 +1,6 @@
 ﻿using Simple_Renamer.Explorer;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,10 +11,12 @@ namespace Simple_Renamer
     /// </summary>
     public partial class MainWindow : Window
     {
+        internal static string currentFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+
         public MainWindow()
         {   
             InitializeComponent();
-            FolderTree.CurrentFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            FolderTree.CurrentFolder = currentFolder;
             PopulateFilesGrid(FolderTree.CurrentFolder);
         }
 
@@ -23,8 +24,9 @@ namespace Simple_Renamer
         {
             try
             {
-                DirectoryText.Text = FolderTree.CurrentFolder;
-                PopulateFilesGrid(folderPath: FolderTree.CurrentFolder);
+                currentFolder = FolderTree.CurrentFolder;
+                DirectoryText.Text = currentFolder;
+                PopulateFilesGrid(folderPath: currentFolder);
             }
             catch (Exception)
             {
@@ -41,6 +43,14 @@ namespace Simple_Renamer
 
             List<RenamableItem> items = FileTools.GenerateRenamableItemsList(folderPath,option);            
             FilesDataGrid.ItemsSource = items;
+        }
+
+        private void optionsCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (String.IsNullOrEmpty(currentFolder))
+                return;
+
+            PopulateFilesGrid(folderPath: currentFolder);
         }
     }
 }

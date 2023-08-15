@@ -118,10 +118,10 @@
             <!--#region Options Panel -->
             <StackPanel Grid.Column="2">
                 <Label Content="Options" FontWeight="Bold" Margin="0 5"/>
-                <ComboBox x:Name="optionsCombo"  Margin="0 5">
-                    <ComboBoxItem Content="Files" Tag="0" Selector.IsSelected="True" />
+                <ComboBox x:Name="optionsCombo"  Margin="0 5" SelectionChanged="optionsCombo_SelectionChanged">
+                    <ComboBoxItem Content="Files" Tag="0" />
                     <ComboBoxItem Content="Directories" Tag="1" />
-                    <ComboBoxItem Content="Files and directories" Tag="2" />
+                    <ComboBoxItem Content="Files and directories" Tag="2" Selector.IsSelected="True" />
                 </ComboBox>
                 <Grid Margin="0 5">
                     <Grid.ColumnDefinitions>
