@@ -88,6 +88,7 @@ namespace Simple_Renamer
                 pattern = cmbRenamed.Text;
 
             PatternTools.SavePattern(pattern, patternType);
+            MessageBox.Show(this, "The pattern was successfully saved.", "Simple Renamer", MessageBoxButton.OK, MessageBoxImage.Information);            
         }
     }
 }
