@@ -1,9 +1,9 @@
-﻿<Window x:Class="Simple_Renamer.Views.AddPatternDialog"
+﻿<Window x:Class="Simple_Renamer.AddPatternDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Simple_Renamer.Views"
+        xmlns:local="clr-namespace:Simple_Renamer"
         mc:Ignorable="d"
         Title="Add Pattern" Height="90" Width="250">
     <Grid>

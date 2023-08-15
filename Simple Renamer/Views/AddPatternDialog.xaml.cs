@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Simple_Renamer.Views
+namespace Simple_Renamer
 {
     /// <summary>
     /// Interaction logic for AddPatternDialog.xaml
