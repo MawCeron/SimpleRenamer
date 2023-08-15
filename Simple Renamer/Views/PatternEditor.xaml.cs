@@ -17,9 +17,9 @@ namespace Simple_Renamer
     /// <summary>
     /// Interaction logic for PatternsEditor.xaml
     /// </summary>
-    public partial class PatternsEditor : Window
+    public partial class PatternEditor : Window
     {
-        public PatternsEditor()
+        public PatternEditor()
         {
             InitializeComponent();
         }
