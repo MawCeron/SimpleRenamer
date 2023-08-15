@@ -197,7 +197,7 @@
                                 <Label Grid.Column="0" Grid.Row="0" Content="Original file name pattern" Height="25" Margin="0 5" />
                                 <Label Grid.Column="0" Grid.Row="1" Content="Renamed file name pattern" Height="25" Margin="0 5" />
                                 <!-- Combobox -->
-                                <ComboBox Grid.Column="1" Grid.Row="0" IsEditable="True" Height="25" Margin="0 5">
+                                <ComboBox Grid.Column="1" Grid.Row="0" IsEditable="True" Height="25" Margin="0 5" x:Name="cmbOriginal">
                                     <ComboBox.ToolTip>
                                         <StackPanel>
                                             <TextBlock FontWeight="Bold" Margin="0,0,0,5">Patterns</TextBlock>
@@ -230,7 +230,7 @@
                                         </StackPanel>
                                     </ComboBox.ToolTip>
                                 </ComboBox>
-                                <ComboBox Grid.Column="1" Grid.Row="1" IsEditable="True" Height="25" Margin="0 5">
+                                <ComboBox Grid.Column="1" Grid.Row="1" IsEditable="True" Height="25" Margin="0 5" x:Name="cmbRenamed">
                                         <ComboBox.ToolTip>
                                             <StackPanel>
                                                 <TextBlock FontWeight="Bold" Margin="0,0,0,5">Patterns</TextBlock>
@@ -265,14 +265,14 @@
                                         </ComboBox.ToolTip>
                                     </ComboBox>
                                 <!-- Buttons -->
-                                <Button Grid.Column="2" Grid.Row="0" Width="25" Height="25" Margin="0 5" ToolTip="Save the current pattern">
+                                <Button Grid.Column="2" Grid.Row="0" Width="25" Height="25" Margin="0 5" ToolTip="Save the current pattern" Tag="Original" Click="btnSavePattern_Click">
                                     <Image Source="{StaticResource SaveIcon}" Width="18" Height="18" Stretch="Uniform" />
                                 </Button>
                                 <Button Grid.Column="3" Grid.Row="0" Width="25" Height="25" Margin="0 5" ToolTip="Edit saved patterns" Click="btnEditPattern_Click" Tag="Original">
                                     <Image Source="{StaticResource EditIcon}" Width="18" Height="18" Stretch="Uniform" />
                                 </Button>
-                                <Button Grid.Column="2" Grid.Row="1" Width="25" Height="25" Margin="0 5" ToolTip="Save the current pattern">
-                                    <Image Source="{StaticResource SaveIcon}" Width="18" Height="18" Stretch="Uniform" />
+                                <Button Grid.Column="2" Grid.Row="1" Width="25" Height="25" Margin="0 5" ToolTip="Save the current pattern" Tag="Original" Click="btnSavePattern_Click">
+                                    <Image Source="{StaticResource SaveIcon}" Width="18" Height="18" Stretch="Uniform"/>
                                 </Button>
                                 <Button Grid.Column="3" Grid.Row="1" Width="25" Height="25" Margin="0 5" ToolTip="Edit saved patterns" Click="btnEditPattern_Click" Tag="Renamed">
                                     <Image Source="{StaticResource EditIcon}" Width="18" Height="18" Stretch="Uniform" />

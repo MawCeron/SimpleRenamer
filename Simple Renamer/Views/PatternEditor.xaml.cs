@@ -23,7 +23,7 @@ namespace Simple_Renamer
         public PatternEditor(string? patternType)
         {
             InitializeComponent();
-            List<string> patterns = UITools.LoadPatterns(patternType);
+            List<string> patterns = PatternTools.LoadPatterns(patternType);
             patternsList.ItemsSource = patterns;
         }
     }

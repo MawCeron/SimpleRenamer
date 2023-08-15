@@ -10,17 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Patterns\original" />
-    <None Remove="Patterns\renamed" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Patterns\original">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Patterns\renamed">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="SimpleRenamer.ico" />
   </ItemGroup>
 
