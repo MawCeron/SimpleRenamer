@@ -435,7 +435,7 @@
             </TabControl>
 
             <StackPanel Grid.Column="1" Margin="0 17 0 0">
-                <Button Margin="5">
+                <Button Margin="5" x:Name="btnPreview" Click="btnPreview_Click">
                     <Grid Width="80">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="20" />

@@ -13,6 +13,7 @@ namespace Simple_Renamer
     public partial class MainWindow : Window
     {
         internal static string currentFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        private List<RenamableItem> items;
 
         public MainWindow()
         {   
@@ -51,7 +52,7 @@ namespace Simple_Renamer
             var selectedItem = (ComboBoxItem)optionsCombo.SelectedItem;
             int option = Int32.Parse((string)selectedItem.Tag);
 
-            List<RenamableItem> items = FileTools.GenerateRenamableItemsList(folderPath,option);            
+            items = FileTools.GenerateRenamableItemsList(folderPath,option);            
             FilesDataGrid.ItemsSource = items;
         }
 
@@ -89,6 +90,19 @@ namespace Simple_Renamer
 
             PatternTools.SavePattern(pattern, patternType);
             MessageBox.Show(this, "The pattern was successfully saved.", "Simple Renamer", MessageBoxButton.OK, MessageBoxImage.Information);            
+        }
+
+        private void btnPreview_Click(object sender, RoutedEventArgs e)
+        {
+            string originalPattern = cmbOriginal.Text;
+            string renamePattern = cmbRenamed.Text;
+
+            foreach (var item in items)
+            {
+                item.NewName = RenameTools.Rename(fileName: item.OriginalName, originalPattern, renamePattern);
+            }
+
+            FilesDataGrid.ItemsSource = items;
         }
     }
 }
