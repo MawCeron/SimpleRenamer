@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace Simple_Renamer.Tools
 {
@@ -156,6 +155,177 @@ namespace Simple_Renamer.Tools
             }
 
             return newName.ToString();
+        }
+
+        internal static string RenameUsingPatterns(string fileName, string path, string patternOriginal, string patternRename, int count = 1)
+        {
+            /*  This method parses te patterns given by the user. Posibble patterns are:
+
+                {#} Numbers
+                {L} Letters
+                {C} Characters (Numbers & letters, not spaces)
+                {X} Numbers, letters, and spaces
+                {@} Trash  */
+
+            string regexPattern = patternOriginal;
+            string newName = patternRename;
+
+            regexPattern = regexPattern.Replace(".", @"\.");
+            regexPattern = regexPattern.Replace("[", @"\[");
+            regexPattern = regexPattern.Replace("]", @"\]");
+            regexPattern = regexPattern.Replace("(", @"\(");
+            regexPattern = regexPattern.Replace(")", @"\)");
+            regexPattern = regexPattern.Replace("?", @"\?");
+            regexPattern = regexPattern.Replace("{#}", @"([0-9]*)");
+            regexPattern = regexPattern.Replace("{L}", @"([a-zA-Z]*)");
+            regexPattern = regexPattern.Replace("{C}", @"([\S]*)");
+            regexPattern = regexPattern.Replace("{X}", @"([\S\s]*)");
+            regexPattern = regexPattern.Replace("{@}", @"(.*)");
+
+            try
+            {
+                Match matchPattern = Regex.Match(fileName, regexPattern);
+                for (int i = 1; i < matchPattern.Groups.Count; i++)
+                {
+                    newName = newName.Replace("{" + i + "}", matchPattern.Groups[i].Value);
+                }
+            }
+            catch (Exception)
+            {
+                return String.Empty;
+            }
+
+            /* Replace {num} with item number
+             * If {num2} the number will be 02
+             * If {num3+10} the number will be 010 */
+
+            try
+            {
+                Regex numPattern = new Regex(@"{(num)([0-9]*)}|{(num)([0-9]*)(\+)([0-9]*)}");
+                Match matchNum = numPattern.Match(newName);
+
+                if (matchNum.Success)
+                {
+                    if (!string.IsNullOrEmpty(matchNum.Groups["padding"].Value))
+                    {
+                        count = int.Parse(count.ToString().PadLeft(int.Parse(matchNum.Groups["padding"].Value), '0'));
+                    }
+
+                    if (!string.IsNullOrEmpty(matchNum.Groups["increment"].Value))
+                    {
+                        count += int.Parse(matchNum.Groups["increment"].Value);
+                    }
+
+                    newName = numPattern.Replace(newName, count.ToString());
+                }
+            }
+            catch
+            {
+                
+            }
+
+            // Replace {dir} with directory name
+            string dir = Path.GetDirectoryName(path);
+            dir = Path.GetFileName(dir);
+            newName = newName.Replace("{dir}", dir);
+
+            // Some date replacements
+            DateTime now = DateTime.Now;
+            newName = newName.Replace("{date}", now.ToString("ddMMMyyyy"));
+            newName = newName.Replace("{datedelim}", now.ToString("dd-MM-yyyy"));
+            newName = newName.Replace("{year}", now.ToString("yyyy"));
+            newName = newName.Replace("{month}", now.ToString("MM"));
+            newName = newName.Replace("{monthname}", now.ToString("MMMM"));
+            newName = newName.Replace("{monthsimp}", now.ToString("MMM"));
+            newName = newName.Replace("{day}", now.ToString("dd"));
+            newName = newName.Replace("{dayname}", now.ToString("dddd"));
+            newName = newName.Replace("{daysimp}", now.ToString("ddd"));
+
+
+            /* 
+             * Replace {rand} with random number between 0 and 100.
+             * If {rand500} the number will be between 0 and 500
+             * If {rand10-20} the number will be between 10 and 20
+             * If you add ,5 the number will be padded with 5 digits
+             * ie. {rand20,5} will be a number between 0 and 20 of 5 digits (00012)             
+             */
+
+            string rnd = string.Empty;
+            Regex randPattern = new Regex(@"{(rand)([0-9]*)}|" +
+                                          @"{(rand)([0-9]*)(\-)([0-9]*)}|" +
+                                          @"{(rand)([0-9]*)(\,)([0-9]*)}|" +
+                                          @"{(rand)([0-9]*)(\-)([0-9]*)(\,)([0-9]*)}");
+
+            Random random = new Random();
+            Match matchRand = randPattern.Match(newName);
+
+            try
+            {
+                if (matchRand.Success)
+                {
+                    GroupCollection groups = matchRand.Groups;
+
+                    if (groups[1].Value == "rand" && string.IsNullOrEmpty(groups[2].Value))
+                    {
+                        rnd = random.Next(0, 101).ToString();
+                    }
+                    else if (groups[1].Value == "rand")
+                    {
+                        rnd = random.Next(0, int.Parse(groups[2].Value) + 1).ToString();
+                    }
+                    else if (groups[3].Value == "rand" && groups[5].Value == "-")
+                    {
+                        rnd = random.Next(int.Parse(groups[4].Value), int.Parse(groups[6].Value) + 1).ToString();
+                    }
+                    else if (groups[7].Value == "rand" && groups[9].Value == ",")
+                    {
+                        int value = string.IsNullOrEmpty(groups[8].Value) ? random.Next(0, 101) : random.Next(0, int.Parse(groups[8].Value) + 1);
+                        rnd = value.ToString().PadLeft(int.Parse(groups[10].Value), '0');
+                    }
+                    else if (groups[11].Value == "rand" && groups[13].Value == "-" && groups[15].Value == ",")
+                    {
+                        int value = random.Next(int.Parse(groups[12].Value), int.Parse(groups[14].Value) + 1);
+                        rnd = value.ToString().PadLeft(int.Parse(groups[16].Value), '0');
+                    }
+
+                    newName = randPattern.Replace(newName, rnd);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+            // Returns the new name
+            return newName;
+        }
+
+        internal static string InsertAt(string fileName, string text, int position)
+        {
+            // Append text at given position
+            
+            string newName = String.Empty;
+
+            if (position >= 0)
+            {
+                string start = fileName.Substring(0, position);
+                string end = fileName.Substring(position);
+                newName = start + text + end;
+            }
+            else
+                newName = fileName + text;
+
+            return newName;
+        }
+
+        internal static string DeleteFrom(string fileName, int startIndex, int finalIndex)
+        {
+            // Delete chars from startIndex till finalIndex
+
+            string initialText = fileName.Substring(0, startIndex);
+            string finalText = fileName.Substring(finalIndex);
+
+            return initialText + finalText;
         }
     }
 }
