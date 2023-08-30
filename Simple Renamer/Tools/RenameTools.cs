@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,48 +11,61 @@ namespace Simple_Renamer.Tools
 {
     internal class RenameTools
     {
-        internal static string Rename(string fileName, string originalPattern, string renamePattern)
+        internal static string ReplaceSpaces(string fileName, int mode)
         {
-            string regexPattern = ConvertPatterToRegex(pattern: originalPattern);
-            Regex regex = new Regex(regexPattern);
-            Match match = regex.Match(fileName);
+            /*  if mode == 0: ' ' -> '_'
+                if mode == 1: '_' -> ' '
+                if mode == 2: '_' -> '.'
+                if mode == 3: '.' -> ' '
+                if mode == 4: ' ' -> '-'
+                if mode == 5: '-' -> ' '  */
+            
+            string newName = String.Empty;
 
-            if (!match.Success) return fileName;
+            if (mode == 0)
+                newName = fileName.Replace(' ', '_');
+            else if (mode == 1)
+                newName = fileName.Replace('_', ' ');
+            else if (mode == 2)
+                newName = fileName.Replace(' ', '.');
+            else if (mode == 3)
+                newName = fileName.Replace('.', ' ');
+            else if (mode == 4)
+                newName = fileName.Replace(' ', '-');
+            else if (mode == 5)
+                newName = fileName.Replace('-', ' ');
 
-            string renamedFileName = renamePattern;
-
-            for (int i = 1; i < match.Groups.Count; i++)
-            {
-                renamedFileName = renamedFileName.Replace("{" + i + "}", match.Groups[i].Value);
-            }
-
-            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-            string fileExtension = Path.GetExtension(fileName);
-            renamedFileName = renamedFileName.Replace("{name}", fileNameWithoutExtension).Replace("{ext}", fileExtension);
-
-            renamedFileName = renamedFileName.Replace("{#}", fileName);
-
-
-            return renamedFileName;
+            return newName;
         }
 
-        private static string ConvertPatterToRegex(string pattern)
+        internal static string ReplaceCapitalization(string fileName, int mode)
         {
-            Dictionary<string, string> conversions = new Dictionary<string, string>
-            {
-                { "{#}", @"\d+" },
-                { "{L}", @"[a-zA-Z]+" },
-                { "{C}", @"[a-zA-Z0-9]+" },
-                { "{X}", @"[a-zA-Z0-9\s]+" },
-                { "{@}", ".*?" }
-            };
+            /*   0: all to uppercase
+                 1: all to lowercase
+                 2: first letter uppercase
+                 3: first letter of each word uppercase  */
 
-            foreach (var kvp in conversions)
-            {
-                pattern = pattern.Replace(kvp.Key, $"({kvp.Value})");
-            }
+            string newName = String.Empty;
 
-            return $"^{pattern}$";
+            if (mode == 0)
+                newName = fileName.ToUpperInvariant();
+            else if (mode == 1)
+                newName = fileName.ToLowerInvariant();
+            else if (mode == 2)
+                newName = fileName.ToUpper().Substring(0, 1) + fileName.Substring(1);
+            else if (mode == 3)
+                newName = new CultureInfo("en-US", false).TextInfo.ToTitleCase(fileName);
+
+            return newName;
         }
+
+        internal static string ReplaceWith(string fileName, string originalChar, string newChar)
+        {
+            // Replace all ocurrences of originalChar with newChar
+
+            return fileName.Replace(originalChar, newChar);
+        }
+
+        
     }
 }
