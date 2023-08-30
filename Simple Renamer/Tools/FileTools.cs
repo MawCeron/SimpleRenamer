@@ -33,7 +33,7 @@ namespace Simple_Renamer
             return renamableItems;
         }
 
-        private static void AddItems(List<RenamableItem> items, string folderPath, RenamableItem.FileType itemType)
+        private static void AddItems(List<RenamableItem> items, string folderPath, RenamableItem.FileType itemType, string newName = "")
         {
             try
             {
