@@ -174,8 +174,8 @@
                 <ColumnDefinition Width="120"/>
             </Grid.ColumnDefinitions>
 
-            <TabControl>
-                <TabItem Header="Patterns">
+            <TabControl x:Name="tabOptions">
+                <TabItem Header="Patterns" Tag="patterns">
                     <GroupBox Margin="8" BorderThickness="0">
                         <GroupBox.Header>
                             <Label FontWeight="Bold">Rename files using patterns</Label>
@@ -284,7 +284,7 @@
                         </StackPanel>
                     </GroupBox>
                 </TabItem>
-                <TabItem Header="Substitutions">
+                <TabItem Header="Substitutions" Tag="substitutions">
                     <GroupBox Margin="8" BorderThickness="0">
                         <GroupBox.Header>
                             <Label FontWeight="Bold">Common substitutions</Label>
@@ -374,7 +374,7 @@
                         </StackPanel>
                     </GroupBox>
                 </TabItem>
-                <TabItem Header="Insert / Delete">
+                <TabItem Header="Insert / Delete" Tag="insertDelete">
                     <GroupBox Margin="8" BorderThickness="0">
                         <GroupBox.Header>
                             <Label FontWeight="Bold">Insert or delete charectes from filenames</Label>
@@ -411,27 +411,6 @@
                         </StackPanel>
                     </GroupBox>
                 </TabItem>
-                <TabItem Header="Manual rename">
-                    <GroupBox Margin="8" BorderThickness="0">
-                        <GroupBox.Header>
-                            <Label FontWeight="Bold">Insert or delete charectes from filenames</Label>
-                        </GroupBox.Header>
-                        <StackPanel>
-                            <Grid Margin="20 0 0 0">
-                                
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.15*" MaxWidth="100" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-
-                                <Label Content="New file name" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center"/>
-                                <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Height="20" />
-                            </Grid>
-                            <Label Content="Select the file to rename, change its name and click Preview" FontStyle="Italic"
-                                   Margin="20 5 0 0"/>
-                        </StackPanel>
-                    </GroupBox>
-                </TabItem>                
             </TabControl>
 
             <StackPanel Grid.Column="1" Margin="0 17 0 0">

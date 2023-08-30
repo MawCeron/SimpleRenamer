@@ -94,15 +94,7 @@ namespace Simple_Renamer
 
         private void btnPreview_Click(object sender, RoutedEventArgs e)
         {
-            string originalPattern = cmbOriginal.Text;
-            string renamePattern = cmbRenamed.Text;
-
-            foreach (var item in items)
-            {
-                item.NewName = RenameTools.Rename(fileName: item.OriginalName, originalPattern, renamePattern);
-            }
-
-            FilesDataGrid.ItemsSource = items;
+            
         }
     }
 }
