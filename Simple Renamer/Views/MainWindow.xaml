@@ -397,17 +397,17 @@
                                     <ColumnDefinition Width="0.5*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <CheckBox Content="Insert" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center"/>
-                                <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Height="20" />
+                                <CheckBox x:Name="chkInsert" Content="Insert" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center" Click="CheckBox_Clicked"/>
+                                <TextBox x:Name="txInsert" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Height="20" IsEnabled="False" />
                                 <Label Content="at" HorizontalContentAlignment="Center" Grid.Column="4" Grid.Row="0" />
-                                <xctk:IntegerUpDown Value="1" Minimum="1" Increment="1" Grid.Column="5" Grid.Row="0"  Height="20" />
-                                <CheckBox Content="or at the end" Grid.Column="6" Grid.Row="0" VerticalContentAlignment="Center" />
+                                <xctk:IntegerUpDown x:Name="numIndexInsert" Value="1" Minimum="1" Increment="1" Grid.Column="5" Grid.Row="0"  Height="20" IsEnabled="False" />
+                                <CheckBox x:Name="chkAtEnd" Content="or at the end" Grid.Column="6" Grid.Row="0" VerticalContentAlignment="Center" IsEnabled="False" />
                                 
                                 
-                                <CheckBox Content="Delete from" Grid.Column="0" Grid.Row="1" Margin="0 5" VerticalContentAlignment="Center" />
-                                <xctk:IntegerUpDown Value="1" Minimum="1" Increment="1"   Grid.Column="1" Grid.Row="1" Margin="0 5" Height="20" />
+                                <CheckBox x:Name="chkDelete" Content="Delete from" Grid.Column="0" Grid.Row="1" Margin="0 5" VerticalContentAlignment="Center" Click="CheckBox_Clicked" />
+                                <xctk:IntegerUpDown x:Name="numStart" Value="1" Minimum="1" Increment="1"   Grid.Column="1" Grid.Row="1" Margin="0 5" Height="20" />
                                 <Label Content="to" HorizontalContentAlignment="Center" Grid.Column="2" Grid.Row="1" Margin="0 5" />
-                                <xctk:IntegerUpDown Value="1" Minimum="1" Increment="1"   Grid.Column="3" Grid.Row="1" Margin="0 5" Height="20" />
+                                <xctk:IntegerUpDown x:Name="numEnd"  Value="1" Minimum="1" Increment="1"   Grid.Column="3" Grid.Row="1" Margin="0 5" Height="20" />
                                 
                             </Grid>
                         </StackPanel>

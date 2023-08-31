@@ -113,12 +113,32 @@ namespace Simple_Renamer
         #region Preview Button Actions
         private void InsertDeletePreview()
         {
-            throw new NotImplementedException();
+            List<RenamableItem> renamedItems = new List<RenamableItem>();
+
+            foreach (RenamableItem item in items)
+            {
+                string newName = item.OriginalName;
+
+                if ((bool)chkInsert.IsChecked)
+                {
+                    int position = (bool)chkAtEnd.IsChecked ? -1 : (int)numIndexInsert.Value;
+                    newName = RenameTools.InsertAt(newName, txInsert.Text, position);
+                }
+
+                if ((bool)chkDelete.IsChecked)
+                    newName = RenameTools.DeleteFrom(newName, (int)numStart.Value, (int)numEnd.Value);
+
+                item.NewName = newName;
+
+                renamedItems.Add(item);
+            }
+
+            FilesDataGrid.ItemsSource = renamedItems;
         }
 
         private void PatternsPreview()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void SubstitutionsPreview()
@@ -155,10 +175,18 @@ namespace Simple_Renamer
 
         private void CheckBox_Clicked(object sender, RoutedEventArgs e)
         {
+            // Substitution Tab
             cmbSpaces.IsEnabled = (bool)chkSpaces.IsChecked;
             cmbCapitalization.IsEnabled = (bool)chkCapitalization.IsChecked;
             txReplaceOriginal.IsEnabled = (bool)chkReplace.IsChecked;
             txReplaceNew.IsEnabled = (bool)chkReplace.IsChecked;
+
+            // Insert-Delete Tab
+            txInsert.IsEnabled = (bool)chkInsert.IsChecked;
+            numIndexInsert.IsEnabled = (bool)chkInsert.IsChecked;
+            chkAtEnd.IsEnabled = (bool)chkInsert.IsChecked;
+            numStart.IsEnabled = (bool)chkDelete.IsChecked;
+            numEnd.IsEnabled = (bool)chkDelete.IsChecked;
         }
     }
 }

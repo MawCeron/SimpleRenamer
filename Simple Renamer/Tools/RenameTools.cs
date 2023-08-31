@@ -305,6 +305,7 @@ namespace Simple_Renamer.Tools
             // Append text at given position
             
             string newName = String.Empty;
+            position = position - 1;
 
             if (position >= 0)
             {
@@ -321,6 +322,11 @@ namespace Simple_Renamer.Tools
         internal static string DeleteFrom(string fileName, int startIndex, int finalIndex)
         {
             // Delete chars from startIndex till finalIndex
+            startIndex = startIndex - 1;
+            finalIndex = finalIndex - 1;
+
+            if(finalIndex <= startIndex)
+                return fileName;
 
             string initialText = fileName.Substring(0, startIndex);
             string finalText = fileName.Substring(finalIndex);
