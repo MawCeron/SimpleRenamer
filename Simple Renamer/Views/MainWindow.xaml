@@ -175,7 +175,7 @@
             </Grid.ColumnDefinitions>
 
             <TabControl x:Name="tabOptions">
-                <TabItem Header="Patterns" Tag="patterns">
+                <TabItem Header="Patterns">
                     <GroupBox Margin="8" BorderThickness="0">
                         <GroupBox.Header>
                             <Label FontWeight="Bold">Rename files using patterns</Label>
@@ -304,12 +304,12 @@
                                 </Grid.RowDefinitions>
 
                                 <!-- Etiquetas -->
-                                <CheckBox Grid.Column="0" Grid.Row="0" Content="Spaces" Height="20" Margin="0 2" VerticalContentAlignment="Center" />
-                                <CheckBox Grid.Column="0" Grid.Row="1" Content="Replace" Height="20" Margin="0 2" VerticalContentAlignment="Center" />
-                                <CheckBox Grid.Column="0" Grid.Row="2" Content="Capitalization" Height="20" Margin="0 2" VerticalContentAlignment="Center" />
-                                <CheckBox Grid.Column="0" Grid.Row="3" Content="Remove accents" Height="20" Margin="0 2" VerticalContentAlignment="Center" />
+                                <CheckBox x:Name="chkSpaces" Grid.Column="0" Grid.Row="0" Content="Spaces" Height="20" Margin="0 2" VerticalContentAlignment="Center" Click="CheckBox_Clicked" />
+                                <CheckBox x:Name="chkReplace" Grid.Column="0" Grid.Row="1" Content="Replace" Height="20" Margin="0 2" VerticalContentAlignment="Center" Click="CheckBox_Clicked" />
+                                <CheckBox x:Name="chkCapitalization" Grid.Column="0" Grid.Row="2" Content="Capitalization" Height="20" Margin="0 2" VerticalContentAlignment="Center" Click="CheckBox_Clicked" />
+                                <CheckBox x:Name="chkAccents" Grid.Column="0" Grid.Row="3" Content="Remove accents" Height="20" Margin="0 2" VerticalContentAlignment="Center" />
                                 <!-- Combobox -->
-                                <ComboBox IsEnabled="False"  Grid.Column="1" Grid.Row="0" IsEditable="True" Height="24" Margin="0 2">
+                                <ComboBox x:Name="cmbSpaces" IsEnabled="False"  Grid.Column="1" Grid.Row="0" IsEditable="True" Height="24" Margin="0 2">
                                     <ComboBoxItem Content="Spaces to Underscores" Selector.IsSelected="True" />
                                     <ComboBoxItem Content="Undescores to Spaces" />
                                     <ComboBoxItem Content="Spaces to Dots" />
@@ -323,17 +323,17 @@
                                         <ColumnDefinition Width="0.2*"/>
                                         <ColumnDefinition Width="0.4*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBox Grid.Column="0"/>
-                                    <TextBox Grid.Column="2"/>
+                                    <TextBox x:Name="txReplaceOriginal" Grid.Column="0" IsEnabled="False"/>
+                                    <TextBox x:Name="txReplaceNew" Grid.Column="2" IsEnabled="False"/>
                                     <Label Content="with" Grid.Column="1" HorizontalContentAlignment="Center"/>
                                 </Grid>
-                                <ComboBox IsEnabled="False" Grid.Column="1" Grid.Row="2" IsEditable="True" Height="24" Margin="0 2">
+                                <ComboBox x:Name="cmbCapitalization" IsEnabled="False" Grid.Column="1" Grid.Row="2" IsEditable="True" Height="24" Margin="0 2">
                                     <ComboBoxItem Content="All uppercase" Selector.IsSelected="True" />
                                     <ComboBoxItem Content="All downcase" />
                                     <ComboBoxItem Content="First letter uppercase" />
                                     <ComboBoxItem Content="First letter uppercase of each word" />
                                 </ComboBox>
-                                <CheckBox Grid.Column="1" Grid.Row="3" Content="Fix duplicated symbols" Height="20" Margin="0 2" VerticalContentAlignment="Center">
+                                <CheckBox x:Name="chkDuplicated" Grid.Column="1" Grid.Row="3" Content="Fix duplicated symbols" Height="20" Margin="0 2" VerticalContentAlignment="Center">
                                     <CheckBox.ToolTip>
                                         <StackPanel>
                                             <TextBlock FontWeight="Bold" Margin="0,0,0,5">Fix duplicated symbols</TextBlock>

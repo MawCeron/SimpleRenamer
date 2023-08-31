@@ -2,6 +2,7 @@
 using Simple_Renamer.Tools;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -94,7 +95,70 @@ namespace Simple_Renamer
 
         private void btnPreview_Click(object sender, RoutedEventArgs e)
         {
+            int selectedTab = tabOptions.SelectedIndex;
+
+            if (selectedTab == 0)
+            {
+                PatternsPreview();
+            }
+            else if (selectedTab == 1)
+            {
+                SubstitutionsPreview();
+            } else if (selectedTab == 2)
+            {
+                InsertDeletePreview();
+            }
+        }
+
+        #region Preview Button Actions
+        private void InsertDeletePreview()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PatternsPreview()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SubstitutionsPreview()
+        {
+            List<RenamableItem> renamedItems = new List<RenamableItem>();
             
+            foreach(RenamableItem item in items)
+            {
+                string newName = item.OriginalName;
+
+                if ((bool)chkSpaces.IsChecked)
+                    newName = RenameTools.ReplaceSpaces(newName, cmbSpaces.SelectedIndex);
+
+                if ((bool)chkReplace.IsChecked)
+                    newName = RenameTools.ReplaceWith(newName, txReplaceOriginal.Text, txReplaceNew.Text);
+                
+                if ((bool)chkCapitalization.IsChecked)
+                    newName = RenameTools.ReplaceCapitalization(newName, cmbCapitalization.SelectedIndex);
+
+                if ((bool)chkAccents.IsChecked)
+                    newName = RenameTools.ReplaceAccents(newName);
+
+                if ((bool)chkDuplicated.IsChecked)
+                    newName = RenameTools.ReplaceDuplicated(newName);
+
+                item.NewName = newName;
+
+                renamedItems.Add(item);
+            }
+
+            FilesDataGrid.ItemsSource = renamedItems;
+        }
+        #endregion
+
+        private void CheckBox_Clicked(object sender, RoutedEventArgs e)
+        {
+            cmbSpaces.IsEnabled = (bool)chkSpaces.IsChecked;
+            cmbCapitalization.IsEnabled = (bool)chkCapitalization.IsChecked;
+            txReplaceOriginal.IsEnabled = (bool)chkReplace.IsChecked;
+            txReplaceNew.IsEnabled = (bool)chkReplace.IsChecked;
         }
     }
 }
