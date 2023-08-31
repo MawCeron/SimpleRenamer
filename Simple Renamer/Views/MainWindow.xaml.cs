@@ -138,7 +138,20 @@ namespace Simple_Renamer
 
         private void PatternsPreview()
         {
-            
+            List<RenamableItem> renamedItems = new List<RenamableItem>();
+            int count = 0;
+
+            foreach (RenamableItem item in items)
+            {
+                string newName = RenameTools.RenameUsingPatterns(item.OriginalName, currentFolder, cmbOriginal.Text, cmbRenamed.Text, count.ToString());
+
+                item.NewName = newName;
+
+                renamedItems.Add(item);
+                count++;
+            }
+
+            FilesDataGrid.ItemsSource = renamedItems;
         }
 
         private void SubstitutionsPreview()
@@ -187,6 +200,11 @@ namespace Simple_Renamer
             chkAtEnd.IsEnabled = (bool)chkInsert.IsChecked;
             numStart.IsEnabled = (bool)chkDelete.IsChecked;
             numEnd.IsEnabled = (bool)chkDelete.IsChecked;
+        }
+
+        private void cmbRenamed_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            PatternsPreview();
         }
     }
 }

@@ -232,7 +232,7 @@
                                         </StackPanel>
                                     </ComboBox.ToolTip>
                                 </ComboBox>
-                                <ComboBox Grid.Column="1" Grid.Row="1" IsEditable="True" Height="25" Margin="0 5" x:Name="cmbRenamed">
+                                <ComboBox Grid.Column="1" Grid.Row="1" IsEditable="True" Height="25" Margin="0 5" x:Name="cmbRenamed" KeyUp="cmbRenamed_KeyDown" >
                                         <ComboBox.ToolTip>
                                             <StackPanel>
                                                 <TextBlock FontWeight="Bold" Margin="0,0,0,5">Patterns</TextBlock>

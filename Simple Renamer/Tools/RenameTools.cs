@@ -4,7 +4,6 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows;
 
 namespace Simple_Renamer.Tools
 {
@@ -157,7 +156,7 @@ namespace Simple_Renamer.Tools
             return newName.ToString();
         }
 
-        internal static string RenameUsingPatterns(string fileName, string path, string patternOriginal, string patternRename, int count = 1)
+        internal static string RenameUsingPatterns(string fileName, string path, string patternOriginal, string patternRename, string count)
         {
             /*  This method parses te patterns given by the user. Posibble patterns are:
 
@@ -199,34 +198,47 @@ namespace Simple_Renamer.Tools
              * If {num2} the number will be 02
              * If {num3+10} the number will be 010 */
 
+            Regex cr = new Regex(@"{(num)([0-9]*)}|{(num)([0-9]*)(\+)([0-9]*)}");
+
             try
             {
-                Regex numPattern = new Regex(@"{(num)([0-9]*)}|{(num)([0-9]*)(\+)([0-9]*)}");
-                Match matchNum = numPattern.Match(newName);
-
-                if (matchNum.Success)
+                Match match = cr.Match(newName);
+                if (match.Success)
                 {
-                    if (!string.IsNullOrEmpty(matchNum.Groups["padding"].Value))
-                    {
-                        count = int.Parse(count.ToString().PadLeft(int.Parse(matchNum.Groups["padding"].Value), '0'));
-                    }
+                    GroupCollection groups = match.Groups;
 
-                    if (!string.IsNullOrEmpty(matchNum.Groups["increment"].Value))
+                    if (groups[1].Value == "num")
                     {
-                        count += int.Parse(matchNum.Groups["increment"].Value);
+                        // Handle {numX}
+                        if (!string.IsNullOrEmpty(groups[2].Value))
+                        {
+                            count = count.PadLeft(int.Parse(groups[2].Value), '0');
+                        }
+                        newName = cr.Replace(newName, count);
                     }
+                    else if (groups[3].Value == "num" && groups[5].Value == "+")
+                    {
+                        // Handle {numX+Y}
+                        if (!string.IsNullOrEmpty(groups[6].Value))
+                        {
+                            count = (int.Parse(count) + int.Parse(groups[6].Value)).ToString();
+                        }
+                        if (!string.IsNullOrEmpty(groups[4].Value))
+                        {
+                            count = count.PadLeft(int.Parse(groups[4].Value), '0');
+                        }
 
-                    newName = numPattern.Replace(newName, count.ToString());
+                        newName = cr.Replace(newName, count);
+                    }
                 }
             }
             catch
             {
-                
+                // You might want to log or handle the exception in a more specific way
             }
 
-            // Replace {dir} with directory name
-            string dir = Path.GetDirectoryName(path);
-            dir = Path.GetFileName(dir);
+            // Replace {dir} with directory name            
+            string dir = Path.GetFileName(path);
             newName = newName.Replace("{dir}", dir);
 
             // Some date replacements
