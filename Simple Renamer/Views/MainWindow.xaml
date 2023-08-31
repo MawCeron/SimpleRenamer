@@ -405,9 +405,9 @@
                                 
                                 
                                 <CheckBox x:Name="chkDelete" Content="Delete from" Grid.Column="0" Grid.Row="1" Margin="0 5" VerticalContentAlignment="Center" Click="CheckBox_Clicked" />
-                                <xctk:IntegerUpDown x:Name="numStart" Value="1" Minimum="1" Increment="1"   Grid.Column="1" Grid.Row="1" Margin="0 5" Height="20" IsEnabled="False" />
+                                <xctk:IntegerUpDown x:Name="numStart" Value="1" Minimum="1" Maximum="{Binding ElementName=numEnd, Path=Value}" Increment="1"   Grid.Column="1" Grid.Row="1" Margin="0 5" Height="20" IsEnabled="False" />
                                 <Label Content="to" HorizontalContentAlignment="Center" Grid.Column="2" Grid.Row="1" Margin="0 5" />
-                                <xctk:IntegerUpDown x:Name="numEnd"  Value="1" Minimum="1" Increment="1"   Grid.Column="3" Grid.Row="1" Margin="0 5" Height="20" IsEnabled="False" />
+                                <xctk:IntegerUpDown x:Name="numEnd"  Value="1" Minimum="{Binding ElementName=numStart, Path=Value}" Increment="1"   Grid.Column="3" Grid.Row="1" Margin="0 5" Height="20" IsEnabled="False"  />
                                 
                             </Grid>
                         </StackPanel>

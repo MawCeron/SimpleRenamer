@@ -337,9 +337,6 @@ namespace Simple_Renamer.Tools
             startIndex = startIndex - 1;
             finalIndex = finalIndex - 1;
 
-            if(finalIndex <= startIndex)
-                return fileName;
-
             string initialText = fileName.Substring(0, startIndex);
             string finalText = fileName.Substring(finalIndex);
 
