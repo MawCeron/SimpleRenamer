@@ -16,14 +16,16 @@
 
         <Grid Grid.Row="0" Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="220"/>
-                <ColumnDefinition />
+                <ColumnDefinition Width="220" MaxWidth="600"/>
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
             <Border BorderBrush="SlateGray" BorderThickness="1">
                 <explorer:FolderTree x:Name="FolderTree" Grid.Column="0" SelectedItemChanged="FolderTree_SelectedItemChanged"></explorer:FolderTree>
             </Border>
-            <DataGrid x:Name="FilesDataGrid" Grid.Column="1" Margin="8 0" AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="None">
+            <GridSplitter Grid.Column="1" Width="3" HorizontalAlignment="Stretch" Margin="1 0" />
+            <DataGrid x:Name="FilesDataGrid" Grid.Column="2" Margin="8 0" AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="None">
                 <DataGrid.Style>
                     <Style TargetType="DataGrid">
                         <!-- Make the border and grid lines a little less imposing -->
@@ -116,7 +118,7 @@
             </DataGrid>
             
             <!--#region Options Panel -->
-            <StackPanel Grid.Column="2">
+            <StackPanel Grid.Column="3">
                 <Label Content="Options" FontWeight="Bold" Margin="0 5"/>
                 <ComboBox x:Name="optionsCombo"  Margin="0 5" SelectionChanged="optionsCombo_SelectionChanged">
                     <ComboBoxItem Content="Files" Tag="0" />
